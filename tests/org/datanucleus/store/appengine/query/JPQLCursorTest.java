@@ -114,7 +114,8 @@ public class JPQLCursorTest extends JPATestCase {
 
     for (int i = 0; i < lowLevelCursors.size(); i++) {
       Cursor lowLevelCursor = lowLevelCursors.get(i);
-      List<Entity> list = ds.prepare(query).asList(FetchOptions.Builder.withCursor(lowLevelCursor));
+      List<Entity> list = ds.prepare(query).asList(
+          FetchOptions.Builder.withStartCursor(lowLevelCursor));
       assertEquals(3 - i, list.size());
     }
   }

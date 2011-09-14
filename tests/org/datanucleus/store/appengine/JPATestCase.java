@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 
 import org.datanucleus.ClassLoaderResolver;
@@ -145,7 +146,7 @@ public class JPATestCase extends DatastoreTestCase {
 
   public int countForClass(Class<?> clazz) {
     String kind = kindForClass(clazz);
-    return ds.prepare(new Query(kind)).countEntities();
+    return ds.prepare(new Query(kind)).countEntities(FetchOptions.Builder.withDefaults());
   }
 
   protected String kindForClass(Class<?> clazz) {

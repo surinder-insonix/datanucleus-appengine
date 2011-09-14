@@ -16,6 +16,7 @@ limitations under the License.
 package org.datanucleus.store.appengine;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
@@ -741,7 +742,8 @@ public class JPASingleTableInheritanceTest extends JPATestCase {
     return c11;
   }
   
-  private Child12 newChild12(StartEnd startEnd, String parentStr, Integer child11Integer, int child12Int, Float value, Embedded1 embedded1, Child11Many... child11Many) {
+  private Child12 newChild12(StartEnd startEnd, String parentStr, Integer child11Integer,
+                             int child12Int, Float value, Embedded1 embedded1, Child11Many... child11Many) {
     Child12 c12 = new Child12();
     c12.setParentStr(parentStr);
     c12.setChild11Integer(child11Integer);
@@ -767,10 +769,11 @@ public class JPASingleTableInheritanceTest extends JPATestCase {
     return c21;
   }
   
-  private Child22 newChild22(StartEnd startEnd, String parentStr, String child22Str, Boolean value, Embedded2 embedded2) {
+  private Child22 newChild22(StartEnd startEnd, String parentStr, String child22Str, Boolean value,
+                             Embedded2 embedded2) {
     Child22 c22 = new Child22();
     c22.setParentStr(parentStr);
-    c22.setChild22Str("Child22");
+    c22.setChild22Str(child22Str);
     c22.setEmbedded2(embedded2);
     c22.setValue(value);
     makePersistent(c22, startEnd);
@@ -789,8 +792,8 @@ public class JPASingleTableInheritanceTest extends JPATestCase {
   }
 
   private int countForKind(String kind) {
-    return ds.prepare(
-        new com.google.appengine.api.datastore.Query(kind)).countEntities();
+    return ds.prepare(new com.google.appengine.api.datastore.Query(kind)).countEntities(
+        FetchOptions.Builder.withDefaults());
   }
   
 }

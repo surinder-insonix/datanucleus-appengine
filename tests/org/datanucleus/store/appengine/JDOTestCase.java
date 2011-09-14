@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.FetchOptions;
 
 import org.datanucleus.ObjectManager;
 import org.datanucleus.jdo.JDOPersistenceManager;
@@ -148,8 +149,8 @@ public class JDOTestCase extends DatastoreTestCase {
 
   protected int countForClass(Class<?> clazz) {
     String kind = kindForClass(clazz);
-    return ds.prepare(
-        new com.google.appengine.api.datastore.Query(kind)).countEntities();
+    return ds.prepare(new com.google.appengine.api.datastore.Query(kind)).countEntities(
+        FetchOptions.Builder.withDefaults());
   }
 
   protected String kindForClass(Class<?> clazz) {
