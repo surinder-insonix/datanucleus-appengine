@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry excluding="META-INF/*" kind="src" path="tests_bugs"/>
 	<classpathentry kind="lib" path="lib/appengine-agent.jar"/>
 	<classpathentry kind="lib" path="lib/appengine-agentimpl.jar"/>
 	<classpathentry kind="lib" path="lib/appengine-agentruntime.jar"/>
@@ -15,22 +14,22 @@
 	<classpathentry kind="lib" path="lib/appengine-tools-api.jar"/>
 	<classpathentry kind="lib" path="lib/asm-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/cloudcover-1.0.2.final.jar"/>
+	<classpathentry kind="lib" path="lib/datanucleus-core-1.1.5.jar"/>
+	<classpathentry kind="lib" path="lib/datanucleus-enhancer-1.1.4.jar"/>
+	<classpathentry kind="lib" path="lib/datanucleus-jpa-1.1.5.jar"/>
 	<classpathentry kind="lib" path="lib/easymock.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-el_1.0_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-jpa_3.0_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-jsp_2.1_spec-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-servlet_2.5_spec-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jdo2-api-2.3-eb.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jasper-compiler-5.0.28.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jasper-runtime-5.0.28.jar"/>
+	<classpathentry kind="lib" path="target/datanucleus-appengine-1.0.10-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/geronimo-jpa_2.0_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/jdo-api-3.1-SNAPSHOT-20110319.jar"/>
-	<classpathentry kind="lib" path="lib/datanucleus-api-jdo-3.0.0-release.jar"/>
-	<classpathentry kind="lib" path="lib/datanucleus-api-jpa-3.0.0-release.jar"/>
-	<classpathentry kind="lib" path="lib/datanucleus-enhancer-3.0.0-release.jar"/>
-	<classpathentry kind="lib" path="lib/datanucleus-core-3.0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/test-classes"/>
 </classpath>

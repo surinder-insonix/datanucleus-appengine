@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.google.appengine.orm</groupId>
+    <groupId>com.google</groupId>
     <artifactId>datanucleus-appengine</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0-beta</version>
+    <version>1.0.10-SNAPSHOT</version>
 
     <pluginRepositories>
         <pluginRepository>
@@ -22,29 +22,23 @@
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>(2.9, )</version>
+            <version>[1.1, 1.2)</version>
         </dependency>
         <dependency>
             <groupId>javax.jdo</groupId>
-            <artifactId>jdo-api</artifactId>
-            <version>[3.0, 4.0)</version>
+            <artifactId>jdo2-api</artifactId>
+            <version>2.3-eb</version>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-            <version>1.0</version>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <version>1.1.1</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-api-jdo</artifactId>
-            <version>(2.9, )</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-api-jpa</artifactId>
-            <version>(2.9, )</version>
+            <artifactId>datanucleus-jpa</artifactId>
+            <version>[1.1, 1.2)</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -93,7 +87,6 @@
                 <filtering>true</filtering>
                 <directory>src</directory>
                 <includes>
-                    <include>**/*.properties</include>
                     <include>**/plugin.xml</include>
                     <include>**/META-INF/*</include>
                     <include>**/META-INF/services/*</include>
@@ -147,13 +140,12 @@
             <plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>maven-datanucleus-plugin</artifactId>
-                <version>3.0.0-m2</version>
+                <version>1.1.4</version>
                 <configuration>
-                    <metadataDirectory>${project.build.testOutputDirectory}</metadataDirectory>
-                    <metadataIncludes>**/test/*.class</metadataIncludes>
                     <classes>${project.build.testOutputDirectory}</classes>
                     <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
-                    <verbose>true</verbose>
+                    <verbose>false</verbose>
+                    <mappingIncludes>**/test/*.class</mappingIncludes>
                 </configuration>
                 <executions>
                     <execution>
