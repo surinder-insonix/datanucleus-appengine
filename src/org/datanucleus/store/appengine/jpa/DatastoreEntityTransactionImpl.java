@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine.jpa;
 
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.ObjectManager;
 import org.datanucleus.jpa.EntityTransactionImpl;
@@ -37,16 +38,18 @@ import org.datanucleus.util.NucleusLogger;
 public class DatastoreEntityTransactionImpl extends EntityTransactionImpl {
 
   private final DatastoreServiceConfig config;
+  private final TransactionOptions txnOpts;
 
   public DatastoreEntityTransactionImpl(ObjectManager om) {
     super(om);
     config = ((DatastoreManager) om.getStoreManager()).getDefaultDatastoreServiceConfigForWrites();
+    txnOpts = ((DatastoreManager) om.getStoreManager()).getDefaultDatastoreTransactionOptions();
   }
 
   @Override
   public void begin() {
     super.begin();
-    Transaction txn = DatastoreServiceFactoryInternal.getDatastoreService(config).beginTransaction();
+    Transaction txn = DatastoreServiceFactoryInternal.getDatastoreService(config).beginTransaction(txnOpts);
     NucleusLogger.DATASTORE.debug("Started new datastore transaction: " + txn.getId());
   }
 

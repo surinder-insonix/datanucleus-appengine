@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.util.NucleusLogger;
 
@@ -45,9 +46,11 @@ class DatastoreXAResource extends EmulatedXAResource {
    * The current datastore transaction.
    */
   private DatastoreTransaction currentTxn;
+  private TransactionOptions txnOpts;
 
-  public DatastoreXAResource(DatastoreService datastoreService) {
+  public DatastoreXAResource(DatastoreService datastoreService, TransactionOptions txnOpts) {
     this.datastoreService = datastoreService;
+    this.txnOpts = txnOpts;
   }
 
   @Override
@@ -72,7 +75,7 @@ class DatastoreXAResource extends EmulatedXAResource {
       // the user isn't actually managing transactions, it's just DataNucleus
       // doing it under the hood in order to force things to flush.
       if (datastoreTxn == null) {
-        datastoreTxn = datastoreService.beginTransaction();
+        datastoreTxn = datastoreService.beginTransaction(txnOpts);
       }
       currentTxn = new DatastoreTransaction(datastoreTxn);
     } else {

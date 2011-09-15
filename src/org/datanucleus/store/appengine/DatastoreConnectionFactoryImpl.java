@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.ConnectionFactory;
 import org.datanucleus.ManagedConnection;
@@ -120,9 +121,11 @@ public class DatastoreConnectionFactoryImpl implements ConnectionFactory {
 
   private XAResource newXAResource() {
     if (isTransactional()) {
-      DatastoreServiceConfig config = ((DatastoreManager) omfContext.getStoreManager()).getDefaultDatastoreServiceConfigForWrites();
+      DatastoreManager datastoreManager = (DatastoreManager) omfContext.getStoreManager();
+      DatastoreServiceConfig config = datastoreManager.getDefaultDatastoreServiceConfigForWrites();
+      TransactionOptions txnOpts = datastoreManager.getDefaultDatastoreTransactionOptions();
       DatastoreService datastoreService = DatastoreServiceFactoryInternal.getDatastoreService(config);
-      return new DatastoreXAResource(datastoreService);
+      return new DatastoreXAResource(datastoreService, txnOpts);
     } else {
       return new EmulatedXAResource();
     }

@@ -17,6 +17,7 @@ package org.datanucleus.store.appengine.jdo;
 
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.jdo.JDOTransaction;
 import org.datanucleus.store.appengine.DatastoreManager;
@@ -38,16 +39,18 @@ import javax.jdo.PersistenceManager;
 class DatastoreJDOTransaction extends JDOTransaction {
 
   private final DatastoreServiceConfig config;
+  private final TransactionOptions txnOpts;
 
   public DatastoreJDOTransaction(PersistenceManager pm, DatastoreManager storeMgr, org.datanucleus.Transaction tx) {
     super(pm, tx);
     config = storeMgr.getDefaultDatastoreServiceConfigForWrites();
+    txnOpts = storeMgr.getDefaultDatastoreTransactionOptions();
   }
 
   @Override
   public void begin() {
     super.begin();
-    Transaction txn = DatastoreServiceFactoryInternal.getDatastoreService(config).beginTransaction();
+    Transaction txn = DatastoreServiceFactoryInternal.getDatastoreService(config).beginTransaction(txnOpts);
     NucleusLogger.DATASTORE.debug("Started new datastore transaction: " + txn.getId());
   }
 

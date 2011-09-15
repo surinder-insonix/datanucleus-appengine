@@ -18,6 +18,7 @@ package org.datanucleus.store.appengine;
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
 import com.google.appengine.api.datastore.ReadPolicy;
 import com.google.appengine.api.datastore.ReadPolicy.Consistency;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.ClassLoaderResolver;
 import org.datanucleus.ConnectionFactory;
@@ -148,6 +149,9 @@ public class DatastoreManager extends MappedStoreManager {
   public static final String DATASTORE_READ_CONSISTENCY_PROPERTY =
       "datanucleus.appengine.datastoreReadConsistency";
 
+  public static final String DATASTORE_ALLOW_MULTI_EG_TXNS_PROPERTY =
+      "datanucleus.appengine.datastoreAllowMultiEntityGroupTransactions";
+
   public static final String JPA_QUERY_TIMEOUT_PROPERTY = "javax.persistence.query.timeout";
 
   public static final String JPA_QUERY_CHUNK_SIZE_PROPERTY = "javax.persistence.query.chunkSize";
@@ -187,6 +191,7 @@ public class DatastoreManager extends MappedStoreManager {
   private final StorageVersion storageVersion;
   private final DatastoreServiceConfig defaultDatastoreServiceConfigPrototypeForReads;
   private final DatastoreServiceConfig defaultDatastoreServiceConfigPrototypeForWrites;
+  private final TransactionOptions defaultDatastoreTransactionOptionsPrototype;
 
 
   /**
@@ -211,6 +216,9 @@ public class DatastoreManager extends MappedStoreManager {
         createDatastoreServiceConfigPrototypeForReads(omfContext.getPersistenceConfiguration());
     defaultDatastoreServiceConfigPrototypeForWrites =
         createDatastoreServiceConfigPrototypeForWrites(omfContext.getPersistenceConfiguration());
+    defaultDatastoreTransactionOptionsPrototype =
+        createDatastoreTransactionOptionsPrototype(omfContext.getPersistenceConfiguration());
+
     // Handler for persistence process
     persistenceHandler = new DatastorePersistenceHandler(this);
     dba = new DatastoreAdapter();
@@ -256,6 +264,12 @@ public class DatastoreManager extends MappedStoreManager {
       }
     }
     return datastoreServiceConfig;
+  }
+
+  private TransactionOptions createDatastoreTransactionOptionsPrototype(
+      PersistenceConfiguration persistenceConfig) {
+    return TransactionOptions.Builder.allowMultipleEntityGroups(
+        persistenceConfig.getBooleanProperty(DATASTORE_ALLOW_MULTI_EG_TXNS_PROPERTY));
   }
 
   private void addTypeManagerMappings() throws NoSuchFieldException, IllegalAccessException {
@@ -615,6 +629,10 @@ public class DatastoreManager extends MappedStoreManager {
     return getStorageVersion().ordinal() >= storageVersion.ordinal();
   }
 
+  public TransactionOptions getDefaultDatastoreTransactionOptions() {
+    return copyTransactionOptions(defaultDatastoreTransactionOptionsPrototype);
+  }
+
   /**
    * A {@link FieldManager} implementation that can only be used for managing
    * keys.  Everything else throws {@link UnsupportedOperationException}.
@@ -857,6 +875,7 @@ public class DatastoreManager extends MappedStoreManager {
 
   // visible for testing
   static DatastoreServiceConfig copyDatastoreServiceConfig(DatastoreServiceConfig config) {
+    // Maintenance nightmare, use clone() once it's available in the sdk
     DatastoreServiceConfig newConfig = DatastoreServiceConfig.Builder.
         withImplicitTransactionManagementPolicy(config.getImplicitTransactionManagementPolicy()).
         readPolicy(config.getReadPolicy());
@@ -864,6 +883,25 @@ public class DatastoreManager extends MappedStoreManager {
     if (config.getDeadline() != null) {
       newConfig.deadline(config.getDeadline());
     }
+
+    if (config.getMaxEntityGroupsPerRpc() != null) {
+      config.maxEntityGroupsPerRpc(config.getMaxEntityGroupsPerRpc());
+    }
+
     return newConfig;
+  }
+
+  // visible for testing
+  static TransactionOptions copyTransactionOptions(TransactionOptions txnOpts) {
+    // Maintenance nightmare, use clone() once it's available in the sdk
+    TransactionOptions options = TransactionOptions.Builder.withDefaults();
+    if (txnOpts.allowsMultipleEntityGroups() != null) {
+      if (txnOpts.allowsMultipleEntityGroups()) {
+        options.allowsMultipleEntityGroups();
+      } else {
+        options.clearMultipleEntityGroups();
+      }
+    }
+    return txnOpts;
   }
 }

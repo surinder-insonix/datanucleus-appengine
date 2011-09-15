@@ -23,6 +23,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 import org.datanucleus.store.appengine.Utils.Function;
 import org.datanucleus.test.BidirectionalSingleTableChildJPA.BidirTop;
@@ -567,7 +568,7 @@ abstract class JPAOneToManyPolymorphicTestCase extends JPATestCase {
       txn.commit();
       EasyMock.expectLastCall();
       EasyMock.replay(txn);
-      EasyMock.expect(mockDatastore.beginTransaction()).andReturn(txn);
+      EasyMock.expect(mockDatastore.beginTransaction(EasyMock.isA(TransactionOptions.class))).andReturn(txn);
       EasyMock.expect(mockDatastore.getCurrentTransaction(null)).andReturn(txn);
       EasyMock.expect(mockDatastore.getCurrentTransaction(null)).andReturn(null);
       // the only get we're going to perform is for the pojo

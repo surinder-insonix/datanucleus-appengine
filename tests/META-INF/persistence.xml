@@ -76,4 +76,24 @@ limitations under the License.
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="allowMultiEgTxns">
+        <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
+        <properties>
+            <property name="datanucleus.NontransactionalRead" value="true"/>
+            <property name="datanucleus.NontransactionalWrite" value="true"/>
+            <property name="datanucleus.ConnectionURL" value="appengine"/>
+            <property name="datanucleus.appengine.datastoreAllowMultiEntityGroupTransactions" value="true"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="disallowMultiEgTxns">
+        <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
+        <properties>
+            <property name="datanucleus.NontransactionalRead" value="true"/>
+            <property name="datanucleus.NontransactionalWrite" value="true"/>
+            <property name="datanucleus.ConnectionURL" value="appengine"/>
+            <property name="datanucleus.appengine.datastoreAllowMultiEntityGroupTransactions" value="false"/>
+        </properties>
+    </persistence-unit>
+
 </persistence>
