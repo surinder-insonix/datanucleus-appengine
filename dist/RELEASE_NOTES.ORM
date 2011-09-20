@@ -1,6 +1,12 @@
 Release Notes for the Google App Engine ORM, a DataNucleus plugin that provides
 access to the Google App Engine Datastore via JDO and JPA.
 
+VERSION 1.0.10
+- Support for multi entity group transactions.
+
+- Support not-nullable attributes
+http://code.google.com/p/datanucleus-appengine/issues/detail?id=54
+
 VERSION 1.0.9
 - Recursive relation does not work
 http://code.google.com/p/datanucleus-appengine/issues/detail?id=80
