@@ -8,6 +8,12 @@ VERSION 1.0.10
 http://code.google.com/p/datanucleus-appengine/issues/detail?id=54
 
 VERSION 1.0.9
+- Support PreparedQuery#countEntities(FetchOptions)
+http://code.google.com/p/datanucleus-appengine/issues/detail?id=225
+
+- can't set chunk size for JDO queries (setFetchSize has no effect)
+http://code.google.com/p/datanucleus-appengine/issues/detail?id=208
+
 - Recursive relation does not work
 http://code.google.com/p/datanucleus-appengine/issues/detail?id=80
 
