@@ -48,12 +48,12 @@ public class JPATransactionOptionsConfigTest extends JPATestCase {
     em.close();
     emf.close();
     Map<String, String> props = Utils.newHashMap();
-    props.put("datanucleus.appengine.datastoreEnableXGTransactions", Boolean.TRUE.toString());
+    props.put("datanucleus.appengine.datastoreEnableXGTransactions", Boolean.FALSE.toString());
     emf = Persistence.createEntityManagerFactory(getEntityManagerFactoryName().name(), props);
     em = emf.createEntityManager();
     DatastoreManager storeMgr = (DatastoreManager) getObjectManager().getStoreManager();
     TransactionOptions txnOpts = storeMgr.getDefaultDatastoreTransactionOptions();
-    assertTrue(txnOpts.isXG());
+    assertFalse(txnOpts.isXG());
   }
 
   public void testIsXG_Config() {
