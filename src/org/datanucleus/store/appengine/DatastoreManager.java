@@ -895,7 +895,7 @@ public class DatastoreManager extends MappedStoreManager {
   static TransactionOptions copyTransactionOptions(TransactionOptions txnOpts) {
     // Maintenance nightmare, use clone() once it's available in the sdk
     TransactionOptions options = TransactionOptions.Builder.withDefaults();
-    if (txnOpts.isXG() != null) {
+    if (txnOpts.isXG()) {
       options.setXG(txnOpts.isXG());
     } else {
       options.clearXG();
