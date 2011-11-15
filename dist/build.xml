@@ -230,6 +230,8 @@
         <exclude name="WEB-INF/lib/*"/>
         <exclude name="META-INF/**"/>
       </zipfileset>
+
+      <!-- legacy packaging -->
       <zipfileset prefix="lib/tools/orm" dir="${orm.lib.dir}">
         <include name="asm*.jar"/>
         <include name="jdo2-api*.jar"/>
@@ -252,6 +254,31 @@
         <include name="datanucleus-*src*"/>
         <include name="jdo2-api-*src*"/>
       </zipfileset>
+
+      <!-- new packaging -->
+      <zipfileset prefix="lib/opt/tools/datanucleus/v1" dir="${orm.lib.dir}">
+        <include name="asm*.jar"/>
+        <include name="jdo2-api*.jar"/>
+        <include name="geronimo-jpa*.jar"/>
+        <include name="geronimo-jta*.jar"/>
+        <include name="datanucleus-enhancer*.jar"/>
+        <include name="datanucleus-jpa*.jar"/>
+        <include name="datanucleus-core*.jar"/>
+      </zipfileset>
+      <zipfileset prefix="lib/opt/user/datanucleus/v1" dir="${orm.lib.dir}">
+        <include name="jdo2-api*.jar"/>
+        <include name="geronimo-jpa*.jar"/>
+        <include name="geronimo-jta*.jar"/>
+        <include name="datanucleus-jpa*.jar"/>
+        <include name="datanucleus-core*.jar"/>
+      </zipfileset>
+      <zipfileset prefix="lib/opt/user/datanucleus/v1" file="${orm.jar}"/>
+      <zipfileset prefix="src/opt/user/datanucleus/v1" file="${orm.source.zip}"/>
+      <zipfileset prefix="src/opt/user/datanucleus/v1" dir="${orm.lib.dir}">
+        <include name="datanucleus-*src*"/>
+        <include name="jdo2-api-*src*"/>
+      </zipfileset>
+
       <zipfileset dir=".">
         <include name="README.ORM"/>
         <include name="RELEASE_NOTES.ORM"/>
