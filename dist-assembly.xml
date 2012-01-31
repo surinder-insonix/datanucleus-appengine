@@ -46,14 +46,21 @@
             <directory>${project.build.directory}/sources</directory>
             <outputDirectory>src/opt/user/datanucleus/v2</outputDirectory>
         </fileSet>
-        <!-- Source jars for jdo, jpa, and datanucleus -->
+        <!-- Source jars for jpa and datanucleus -->
         <fileSet>
             <directory>${project.build.directory}/dependency</directory>
             <outputDirectory>src/opt/user/datanucleus/v2</outputDirectory>
             <includes>
-                <include>jdo-api-*-sources.jar</include>
                 <include>datanucleus-*-sources.jar</include>
                 <include>geronimo-jpa*-sources.jar</include>
+            </includes>
+        </fileSet>
+        <!-- Source jar for jdo -->
+        <fileSet>
+            <directory>dist</directory>
+            <outputDirectory>src/opt/user/datanucleus/v2</outputDirectory>
+            <includes>
+                <include>jdo-api-*-sources.jar</include>
             </includes>
         </fileSet>
 
