@@ -8,14 +8,14 @@
     <groupId>com.google.appengine.orm</groupId>
     <artifactId>datanucleus-appengine</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0-RC3</version>
+    <version>2.0.0-final</version>
 
-    <repositories>
+    <repositories>        
         <repository>
             <id>DataNucleus_2</id>
             <url>http://www.datanucleus.org/downloads/maven2</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -36,8 +36,7 @@
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <!--version>3.0.5</version-->
-            <version>[3.0, 3.1)</version>
+            <version>3.0.6</version>
         </dependency>
 
         <!-- Only needed for building the dist.  Can we pull it in just for the assembly? -->
@@ -51,8 +50,7 @@
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo-api</artifactId>
-            <!--<version>3.1-SNAPSHOT-20110926</version>-->
-            <version>[3.0, 4.0)</version>
+            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -63,13 +61,13 @@
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jdo</artifactId>
-            <version>[3.0, 3.1)</version>
+            <version>3.0.5</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jpa</artifactId>
-            <version>[3.0, 3.1)</version>
+            <version>3.0.6</version>
             <optional>true</optional>
         </dependency>
         <dependency>
