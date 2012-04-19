@@ -6,6 +6,7 @@
 
     <persistence-unit name="helloorm">
         <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
+        <class>com.google.appengine.demos.helloorm.Flight</class>
         <properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>
