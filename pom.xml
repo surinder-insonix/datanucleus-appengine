@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>Google AppEngine DataNucleus plugin</name>
     <description>
-        Plugin for DataNucleus providing persistence to the Google AppEngine BigTable datastore
+        Plugin for DataNucleus providing persistence to the Google AppEngine Datastore
     </description>
     <groupId>com.google.appengine.orm</groupId>
     <artifactId>datanucleus-appengine</artifactId>
