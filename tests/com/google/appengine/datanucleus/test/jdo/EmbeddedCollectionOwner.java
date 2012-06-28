@@ -39,7 +39,7 @@ public class EmbeddedCollectionOwner {
   private Key key;
 
   @Persistent(embedded="true")
-  @Element(embeddedMapping=@Embedded(discriminatorColumnName=@Discriminator(column="CHILD_DISCRIM")))
+  @Element(embeddedMapping=@Embedded()) //(discriminatorColumnName=@Discriminator(column="CHILD_DISCRIM")))
   private Collection<EmbeddedRelatedBase> children = new HashSet<EmbeddedRelatedBase>();
 
   public Key getKey() {
