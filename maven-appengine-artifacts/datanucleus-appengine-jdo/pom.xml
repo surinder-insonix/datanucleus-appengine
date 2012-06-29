@@ -7,7 +7,7 @@
     <groupId>com.google.appengine.orm</groupId>
     <artifactId>datanucleus-appengine-jdo</artifactId>
     <packaging>pom</packaging>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>2.1.0</version>
     <name>AppEngine DataNucleus JDO artifact</name>
     <description>AppEngine DataNucleus plugin plus relevant jars for JDO usage</description>
 
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.google.appengine.orm</groupId>
             <artifactId>datanucleus-appengine</artifactId>
-            <version>2.1.0-SNAPSHOT</version>
+            <version>2.1.0-final</version>
         </dependency>
         <dependency>
             <groupId>javax.jdo</groupId>
@@ -32,12 +32,12 @@
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>[3.1.0-m3-SNAPSHOT, 3.1.99)</version>
+            <version>[3.1.0-m4, 3.1.99)</version>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jdo</artifactId>
-            <version>[3.1.0-m1, 3.1.99)</version>
+            <version>[3.1.0-m2, 3.1.99)</version>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
