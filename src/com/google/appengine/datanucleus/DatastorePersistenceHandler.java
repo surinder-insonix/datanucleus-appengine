@@ -35,8 +35,8 @@ import org.datanucleus.metadata.IdentityType;
 import org.datanucleus.metadata.VersionMetaData;
 import org.datanucleus.metadata.VersionStrategy;
 import org.datanucleus.store.AbstractPersistenceHandler;
-import org.datanucleus.ExecutionContext;
-import org.datanucleus.state.ObjectProvider;
+import org.datanucleus.store.ExecutionContext;
+import org.datanucleus.store.ObjectProvider;
 import org.datanucleus.store.PersistenceBatchType;
 import org.datanucleus.store.StoreManager;
 import org.datanucleus.store.VersionHelper;
@@ -49,10 +49,9 @@ import org.datanucleus.store.mapped.mapping.JavaTypeMapping;
 import org.datanucleus.store.mapped.mapping.MapMapping;
 import org.datanucleus.store.mapped.mapping.MappingCallbacks;
 import org.datanucleus.store.schema.naming.ColumnType;
-import org.datanucleus.store.types.SCO;
+import org.datanucleus.store.types.sco.SCO;
 import org.datanucleus.util.Localiser;
 import org.datanucleus.util.NucleusLogger;
-import org.datanucleus.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -405,7 +404,7 @@ public class DatastorePersistenceHandler extends AbstractPersistenceHandler {
         fieldStr.append(cmd.getMetaDataForManagedMemberAtAbsolutePosition(fieldNumbers[i]).getName());
       }
       NucleusLogger.DATASTORE_PERSIST.debug(GAE_LOCALISER.msg("AppEngine.Update.Start", 
-          StringUtils.toJVMIDString(op.getObject()), op.getInternalObjectId(), fieldStr.toString()));
+        op.toPrintableID(), op.getInternalObjectId(), fieldStr.toString()));
     }
 
     ExecutionContext ec = op.getExecutionContext();
@@ -453,7 +452,7 @@ public class DatastorePersistenceHandler extends AbstractPersistenceHandler {
     long startTime = System.currentTimeMillis();
     if (NucleusLogger.DATASTORE_PERSIST.isDebugEnabled()) {
       NucleusLogger.DATASTORE_PERSIST.debug(GAE_LOCALISER.msg("AppEngine.Delete.Start", 
-          StringUtils.toJVMIDString(op.getObject()), op.getInternalObjectId()));
+        op.toPrintableID(), op.getInternalObjectId()));
     }
 
     ExecutionContext ec = op.getExecutionContext();
@@ -547,8 +546,8 @@ public class DatastorePersistenceHandler extends AbstractPersistenceHandler {
     if (NucleusLogger.DATASTORE_RETRIEVE.isDebugEnabled()) {
       // Debug information about what we are retrieving
       StringBuffer str = new StringBuffer("Fetching object \"");
-      str.append(StringUtils.toJVMIDString(op.getObject())).append("\" (id=");
-      str.append(op.getInternalObjectId()).append(")").append(" fields [");
+      str.append(op.toPrintableID()).append("\" (id=");
+      str.append(ec.getApiAdapter().getObjectId(op)).append(")").append(" fields [");
       for (int i=0;i<fieldNumbers.length;i++) {
         if (i > 0) {
           str.append(",");
@@ -562,7 +561,7 @@ public class DatastorePersistenceHandler extends AbstractPersistenceHandler {
     long startTime = System.currentTimeMillis();
     if (NucleusLogger.DATASTORE_RETRIEVE.isDebugEnabled()) {
       NucleusLogger.DATASTORE_RETRIEVE.debug(GAE_LOCALISER.msg("AppEngine.Fetch.Start", 
-          StringUtils.toJVMIDString(op.getObject()), op.getInternalObjectId()));
+        op.toPrintableID(), op.getInternalObjectId()));
     }
 
     op.replaceFields(fieldNumbers, new FetchFieldManager(op, entity, fieldNumbers));
@@ -666,7 +665,7 @@ public class DatastorePersistenceHandler extends AbstractPersistenceHandler {
     if (cmd.isVersioned()) {
       ExecutionContext ec = op.getExecutionContext();
       String versionPropertyName = EntityUtils.getVersionPropertyName(storeMgr.getIdentifierFactory(), vmd);
-      Object curVersion = op.getVersion();
+      Object curVersion = op.getExecutionContext().getApiAdapter().getVersion(op);
       if (curVersion != null) {
         // Fetch the latest and greatest version of the entity from the datastore
         // to see if anyone has made a change underneath us.  We need to execute

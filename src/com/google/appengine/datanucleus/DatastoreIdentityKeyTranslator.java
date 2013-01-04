@@ -16,7 +16,7 @@ limitations under the License.
 package com.google.appengine.datanucleus;
 
 import org.datanucleus.identity.IdentityKeyTranslator;
-import org.datanucleus.ExecutionContext;
+import org.datanucleus.store.ExecutionContext;
 
 /**
  * Translator of the "key" passed in to pm.getObjectById(cls, key), or em.find(cls, key) into

@@ -18,7 +18,6 @@ package com.google.appengine.datanucleus;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
 
-import org.datanucleus.ExecutionContext;
 import org.datanucleus.PersistenceConfiguration;
 import org.datanucleus.Transaction;
 import org.datanucleus.store.StoreManager;
@@ -82,14 +81,14 @@ public class DatastoreConnectionFactoryImpl extends AbstractConnectionFactory {
   /**
    * {@inheritDoc}
    */
-  public ManagedConnection getConnection(ExecutionContext ec, Transaction txn, Map options) {
-    return storeMgr.getConnectionManager().allocateConnection(this, ec, txn, options);
+  public ManagedConnection getConnection(Object poolKey, Transaction txn, Map options) {
+    return storeMgr.getConnectionManager().allocateConnection(this, poolKey, txn, options);
   }
 
   /**
    * {@inheritDoc}
    */
-  public ManagedConnection createManagedConnection(ExecutionContext ec, Map transactionOptions) {
+  public ManagedConnection createManagedConnection(Object poolKey, Map transactionOptions) {
     return new DatastoreManagedConnection(storeMgr, isAutoCreateTransaction());
   }
 
@@ -123,44 +122,6 @@ public class DatastoreConnectionFactoryImpl extends AbstractConnectionFactory {
       } else {
         datastoreXAResource = new EmulatedXAResource(datastoreService);
       }
-    }
-
-    /* (non-Javadoc)
-     * @see org.datanucleus.store.connection.ManagedConnection#closeAfterTransactionEnd()
-     */
-    @Override
-    public boolean closeAfterTransactionEnd() {
-      return true;
-    }
-
-    /* (non-Javadoc)
-     * @see org.datanucleus.store.connection.ManagedConnection#closeOnRelease()
-     */
-    @Override
-    public boolean closeOnRelease() {
-      return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.datanucleus.store.connection.ManagedConnection#commitOnRelease()
-     */
-    @Override
-    public boolean commitOnRelease() {
-      return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.datanucleus.store.connection.ManagedConnection#setCloseOnRelease(boolean)
-     */
-    @Override
-    public void setCloseOnRelease(boolean flag) {
-    }
-
-    /* (non-Javadoc)
-     * @see org.datanucleus.store.connection.ManagedConnection#setCommitOnRelease(boolean)
-     */
-    @Override
-    public void setCommitOnRelease(boolean flag) {
     }
 
     public Object getConnection() {
