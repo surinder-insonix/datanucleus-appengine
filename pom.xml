@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.5</version>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
@@ -99,13 +99,13 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.5</version>
             <scope>test</scope>
         </dependency>
         <!--dependency>
@@ -179,8 +179,17 @@
                 <groupId>org.datanucleus</groupId>
                 <artifactId>maven-datanucleus-plugin</artifactId>
                 <version>3.1.3</version>
+                <dependencies>
+                    <dependency>
+                        <!-- Force the enhancer to use the same version of core
+                         that's already on the classpath. -->
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-core</artifactId>
+                        <version>3.1.3</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <metadataDirectory>${project.build.testOutputDirectory}</metadataDirectory>
+                <metadataDirectory>${project.build.testOutputDirectory}</metadataDirectory>
                     <metadataIncludes>**/test/**/*.class</metadataIncludes>
                     <classes>${project.build.testOutputDirectory}</classes>
                     <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
